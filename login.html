@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion — GoalIQPronos</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #080a0d;
+            --card: #11151a;
+            --card-2: #151a20;
+            --border: rgba(255,255,255,.08);
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+            --green: #22c55e;
+            --green-dark: #16a34a;
+            --red: #ef4444;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(34,197,94,.08), transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(59,130,246,.06), transparent 30%),
+                var(--bg);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: rgba(34,197,94,.035);
+            filter: blur(80px);
+            top: -180px;
+            left: -150px;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: rgba(59,130,246,.03);
+            filter: blur(90px);
+            right: -160px;
+            bottom: -160px;
+            pointer-events: none;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+            z-index: 2;
+            animation: pageIn .7s ease both;
+        }
+
+        @keyframes pageIn {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .brand img {
+            width: 82px;
+            height: 82px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 15px;
+            filter: drop-shadow(0 10px 25px rgba(0,0,0,.45));
+            animation: floatLogo 4s ease-in-out infinite;
+        }
+
+        @keyframes floatLogo {
+            0%,100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(180deg,#fff,#94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-subtitle {
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-top: 5px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, rgba(21,26,32,.97), rgba(10,13,17,.97));
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 30px;
+            box-shadow:
+                0 25px 70px rgba(0,0,0,.5),
+                inset 0 1px 0 rgba(255,255,255,.04);
+            backdrop-filter: blur(14px);
+        }
+
+        h1 {
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+
+        .intro {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .field {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            height: 52px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,.09);
+            background: rgba(255,255,255,.035);
+            color: white;
+            padding: 0 15px;
+            font-size: 14px;
+            outline: none;
+            transition: .25s;
+        }
+
+        input:focus {
+            border-color: rgba(34,197,94,.55);
+            background: rgba(255,255,255,.05);
+            box-shadow: 0 0 0 4px rgba(34,197,94,.07);
+        }
+
+        input::placeholder {
+            color: #64748b;
+        }
+
+        .password-input {
+            padding-right: 50px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 0;
+            background: transparent;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 6px;
+        }
+
+        .toggle-password:hover {
+            color: white;
+        }
+
+        .options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 5px 0 22px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .remember input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--green);
+        }
+
+        .forgot {
+            color: #86efac;
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .forgot:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            width: 100%;
+            height: 53px;
+            border: 0;
+            border-radius: 13px;
+            background: linear-gradient(135deg, var(--green), var(--green-dark));
+            color: white;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: .25s;
+            box-shadow: 0 12px 28px rgba(22,163,74,.18);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px rgba(22,163,74,.28);
+        }
+
+        .btn:disabled {
+            opacity: .65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .message {
+            display: none;
+            margin-top: 16px;
+            padding: 12px 14px;
+            border-radius: 11px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .message.error {
+            display: block;
+            background: rgba(239,68,68,.09);
+            border: 1px solid rgba(239,68,68,.2);
+            color: #fca5a5;
+        }
+
+        .message.success {
+            display: block;
+            background: rgba(34,197,94,.09);
+            border: 1px solid rgba(34,197,94,.2);
+            color: #86efac;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 24px 0;
+            color: #475569;
+            font-size: 11px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: rgba(255,255,255,.07);
+        }
+
+        .signup {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .signup a {
+            color: #86efac;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .signup a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 22px;
+            color: #475569;
+            font-size: 11px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px;
+            }
+
+            .card {
+                padding: 24px 19px;
+                border-radius: 18px;
+            }
+
+            .brand {
+                margin-bottom: 22px;
+            }
+
+            .brand img {
+                width: 70px;
+                height: 70px;
+            }
+
+            h1 {
+                font-size: 23px;
+            }
+
+            .options {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="brand">
+        <img src="logo.png" alt="GoalIQPronos">
+        <div class="brand-name">GoalIQPronos</div>
+        <div class="brand-subtitle">PRONOSTICS</div>
+    </div>
+
+    <div class="card">
+
+        <h1>Connexion</h1>
+
+        <p class="intro">
+            Connectez-vous à votre compte pour accéder à votre espace
+            et gérer votre abonnement.
+        </p>
+
+        <form id="loginForm">
+
+            <div class="field">
+                <label for="email">Adresse e-mail</label>
+                <input
+                    id="email"
+                    type="email"
+                    placeholder="exemple@email.com"
+                    autocomplete="email"
+                    required
+                >
+            </div>
+
+            <div class="field">
+                <label for="password">Mot de passe</label>
+
+                <div class="input-wrap">
+                    <input
+                        id="password"
+                        class="password-input"
+                        type="password"
+                        placeholder="Votre mot de passe"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        id="togglePassword"
+                    >
+                        Afficher
+                    </button>
+                </div>
+            </div>
+
+            <div class="options">
+
+                <label class="remember">
+                    <input type="checkbox" id="remember">
+                    <span>Se souvenir de moi</span>
+                </label>
+
+                <a
+                    href="#"
+                    class="forgot"
+                    id="forgotPassword"
+                >
+                    Mot de passe oublié ?
+                </a>
+
+            </div>
+
+            <button class="btn" id="loginBtn" type="submit">
+                Se connecter
+            </button>
+
+            <div id="message" class="message"></div>
+
+        </form>
+
+        <div class="divider">OU</div>
+
+        <div class="signup">
+            Vous n'avez pas encore de compte ?
+            <a href="inscription.html">Créer un compte</a>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        © 2026 GoalIQPronos — Tous droits réservés.
+    </div>
+
+</div>
+
+<script>
+    /* ==============================
+       CONFIGURATION SUPABASE
+       ============================== */
+
+    const SUPABASE_URL =
+        "https://cmtbzozflkmxfhdzlgab.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtdGJ6b3pmbGtteGZoZHpsZ2FiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAzNDczNTAsImV4cCI6MjEwNTkyMzM1MH0.mtkIN7_X-4OZQNUeLWOZ9ks3CivzrcoW9tgM8tWKAcI";
+
+    /* ==============================
+       ELEMENTS
+       ============================== */
+
+    const loginForm = document.getElementById("loginForm");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const rememberInput = document.getElementById("remember");
+    const loginBtn = document.getElementById("loginBtn");
+    const message = document.getElementById("message");
+    const togglePassword = document.getElementById("togglePassword");
+    const forgotPassword = document.getElementById("forgotPassword");
+
+    /* ==============================
+       AFFICHER / MASQUER MOT DE PASSE
+       ============================== */
+
+    togglePassword.addEventListener("click", function () {
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            togglePassword.textContent = "Masquer";
+        } else {
+            passwordInput.type = "password";
+            togglePassword.textContent = "Afficher";
+        }
+
+    });
+
+    /* ==============================
+       MESSAGE
+       ============================== */
+
+    function showMessage(text, type) {
+
+        message.textContent = text;
+        message.className = "message " + type;
+
+    }
+
+    function clearMessage() {
+
+        message.textContent = "";
+        message.className = "message";
+
+    }
+
+    /* ==============================
+       NORMALISATION EMAIL
+       ============================== */
+
+    function normalizeEmail(email) {
+
+        return email
+            .trim()
+            .toLowerCase();
+
+    }
+
+    /* ==============================
+       VERIFICATION CONFIGURATION
+       ============================== */
+
+    function checkSupabaseConfig() {
+
+        if (
+            !SUPABASE_URL ||
+            !SUPABASE_ANON_KEY ||
+            SUPABASE_ANON_KEY === "COLLER_ICI_LA_CLE_ANON_PUBLIQUE" ||
+            SUPABASE_ANON_KEY.length < 30
+        ) {
+            showMessage(
+                "La clé publique Supabase n'est pas correctement configurée.",
+                "error"
+            );
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /* ==============================
+       CONNEXION
+       ============================== */
+
+    loginForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        clearMessage();
+
+        if (!checkSupabaseConfig()) {
+            return;
+        }
+
+        const email = normalizeEmail(emailInput.value);
+        const password = passwordInput.value;
+
+        if (!email) {
+            showMessage(
+                "Veuillez saisir votre adresse e-mail.",
+                "error"
+            );
+            emailInput.focus();
+            return;
+        }
+
+        if (!password) {
+            showMessage(
+                "Veuillez saisir votre mot de passe.",
+                "error"
+            );
+            passwordInput.focus();
+            return;
+        }
+
+        loginBtn.disabled = true;
+        loginBtn.textContent = "Connexion en cours...";
+
+        try {
+
+            const response = await fetch(
+                SUPABASE_URL + "/rest/v1/rpc/login_user",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                        "apikey": SUPABASE_ANON_KEY,
+                        "Authorization": "Bearer " + SUPABASE_ANON_KEY
+                    },
+
+                    body: JSON.stringify({
+                        p_email: email,
+                        p_password: password
+                    })
+                }
+            );
+
+            let data;
+
+            try {
+                data = await response.json();
+            } catch (jsonError) {
+                data = null;
+            }
+
+            console.log("Réponse Supabase :", data);
+
+            if (!response.ok) {
+
+                let errorText =
+                    data?.message ||
+                    data?.hint ||
+                    data?.details ||
+                    "Erreur lors de la connexion.";
+
+                throw new Error(errorText);
+            }
+
+            /*
+             * Supabase peut retourner directement un objet JSON
+             * ou un tableau contenant l'objet.
+             */
+
+            const result = Array.isArray(data)
+                ? data[0]
+                : data;
+
+            if (!result) {
+                throw new Error(
+                    "Réponse de connexion invalide."
+                );
+            }
+
+            if (result.success === false) {
+
+                const errorCode =
+                    result.code ||
+                    result.error ||
+                    "";
+
+                if (
+                    errorCode === "INVALID_CREDENTIALS" ||
+                    errorCode === "INVALID_PASSWORD" ||
+                    errorCode === "USER_NOT_FOUND"
+                ) {
+                    throw new Error(
+                        "Adresse e-mail ou mot de passe incorrect."
+                    );
+                }
+
+                throw new Error(
+                    result.message ||
+                    "Connexion impossible."
+                );
+            }
+
+            if (!result.user_id) {
+
+                /*
+                 * Si login_user renvoie un user_id,
+                 * on considère la connexion réussie.
+                 */
+
+                throw new Error(
+                    "La connexion a été effectuée mais aucun identifiant utilisateur n'a été retourné."
+                );
+            }
+
+            const session = {
+                user_id: result.user_id,
+                email: result.email || email,
+                logged_at: new Date().toISOString()
+            };
+
+            /*
+             * On ne sauvegarde JAMAIS le mot de passe.
+             */
+
+            if (rememberInput.checked) {
+
+                localStorage.setItem(
+                    "goaliq_session",
+                    JSON.stringify(session)
+                );
+
+                sessionStorage.removeItem(
+                    "goaliq_session"
+                );
+
+            } else {
+
+                sessionStorage.setItem(
+                    "goaliq_session",
+                    JSON.stringify(session)
+                );
+
+                localStorage.removeItem(
+                    "goaliq_session"
+                );
+            }
+
+            showMessage(
+                "Connexion réussie. Redirection...",
+                "success"
+            );
+
+            loginBtn.textContent = "Connexion réussie";
+
+            setTimeout(function () {
+
+                window.location.href = "dashboard.html";
+
+            }, 700);
+
+        } catch (error) {
+
+            console.error(
+                "Erreur connexion :",
+                error
+            );
+
+            showMessage(
+                error.message ||
+                "Impossible de se connecter. Vérifiez votre connexion Internet.",
+                "error"
+            );
+
+            loginBtn.disabled = false;
+            loginBtn.textContent = "Se connecter";
+        }
+
+    });
+
+    /* ==============================
+       MOT DE PASSE OUBLIE
+       ============================== */
+
+    forgotPassword.addEventListener("click", function (event) {
+
+        event.preventDefault();
+
+        showMessage(
+            "La récupération du mot de passe sera disponible prochainement.",
+            "error"
+        );
+
+    });
+
+    /* ==============================
+       EMAIL RECUPERE DE L'INSCRIPTION
+       ============================== */
+
+    const registeredEmail =
+        sessionStorage.getItem("goaliq_registered_email");
+
+    if (registeredEmail) {
+
+        emailInput.value = registeredEmail;
+
+        sessionStorage.removeItem(
+            "goaliq_registered_email"
+        );
+
+        passwordInput.focus();
+    }
+
+</script>
+
+</body>
+</html>
