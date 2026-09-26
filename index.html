@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GoalIQPronos — Pronostics sportifs</title>
+  <meta name="description" content="GoalIQPronos — Accédez à nos pronostics sportifs et à notre groupe officiel.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0b0e12;
+      --bg-secondary: #11151b;
+      --card: #151a21;
+      --border: rgba(255,255,255,0.08);
+      --text: #f1f5f9;
+      --muted: #8d98a8;
+      --silver: #cbd5e1;
+      --green: #22c55e;
+      --green-dark: #15803d;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 50% -10%, rgba(148,163,184,0.10), transparent 35%),
+        linear-gradient(180deg, #101419 0%, #0b0e12 55%, #080a0d 100%);
+      color: var(--text);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 36px));
+      margin: auto;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      background: rgba(11,14,18,0.86);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .navbar {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .brand-name {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+    }
+
+    .brand-name span {
+      color: #94a3b8;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 19px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-login {
+      background: transparent;
+      color: var(--silver);
+    }
+
+    .btn-login:hover {
+      background: rgba(255,255,255,0.05);
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, #33404d, #1d252e);
+      border-color: rgba(255,255,255,0.13);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    }
+
+    .btn-primary:hover {
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    /* HERO */
+
+    .hero {
+      text-align: center;
+      padding: 90px 0 75px;
+    }
+
+    .hero-logo {
+      width: 105px;
+      height: 105px;
+      object-fit: contain;
+      margin-bottom: 25px;
+      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.45));
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 13px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      background: rgba(255,255,255,0.035);
+      color: #aeb8c5;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px rgba(34,197,94,0.6);
+    }
+
+    .hero h1 {
+      max-width: 850px;
+      margin: auto;
+      font-size: clamp(38px, 6vw, 70px);
+      line-height: 1.05;
+      letter-spacing: -2px;
+      font-weight: 800;
+      background: linear-gradient(180deg, #fff 0%, #a7b2c1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: #94a3b8;
+      -webkit-text-fill-color: #94a3b8;
+      font-size: 0.52em;
+      letter-spacing: 2px;
+      margin-top: 15px;
+    }
+
+    .hero-description {
+      max-width: 690px;
+      margin: 25px auto 32px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-actions .btn {
+      min-width: 170px;
+      min-height: 50px;
+    }
+
+    /* SECTION */
+
+    section {
+      padding: 75px 0;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 42px;
+    }
+
+    .section-heading h2 {
+      font-size: 31px;
+      margin-bottom: 10px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      max-width: 600px;
+      margin: auto;
+    }
+
+    /* STEPS */
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .step {
+      position: relative;
+      padding: 27px 22px;
+      background: linear-gradient(145deg, #171c23, #101419);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      min-height: 210px;
+    }
+
+    .step-number {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #64748b;
+      margin-bottom: 28px;
+    }
+
+    .step h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* PRICES */
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .price-card {
+      padding: 34px;
+      background: linear-gradient(145deg, #171c23, #101419);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .price-card.featured {
+      border-color: rgba(255,255,255,0.17);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+
+    .price-label {
+      color: #94a3b8;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .price {
+      margin: 10px 0;
+      font-size: 39px;
+      font-weight: 800;
+    }
+
+    .price small {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .price-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* SECURITY */
+
+    .security-box {
+      max-width: 850px;
+      margin: auto;
+      padding: 35px;
+      text-align: center;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .security-box h2 {
+      margin-bottom: 14px;
+    }
+
+    .security-box p {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* CTA */
+
+    .cta {
+      text-align: center;
+      padding: 90px 20px;
+    }
+
+    .cta h2 {
+      font-size: clamp(30px, 5vw, 46px);
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 35px 0;
+      color: #667181;
+      font-size: 13px;
+    }
+
+    .footer-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a:hover {
+      color: #cbd5e1;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+      .navbar {
+        min-height: 70px;
+      }
+
+      .brand-name {
+        font-size: 15px;
+      }
+
+      .brand img {
+        width: 42px;
+        height: 42px;
+      }
+
+      .nav-actions .btn {
+        min-height: 40px;
+        padding: 0 12px;
+        font-size: 12px;
+      }
+
+      .hero {
+        padding: 65px 0 55px;
+      }
+
+      .hero-description {
+        font-size: 15px;
+      }
+
+      .steps {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: min(100% - 26px, 1120px);
+      }
+
+      .navbar {
+        gap: 10px;
+      }
+
+      .brand-name {
+        display: none;
+      }
+
+      .nav-actions {
+        margin-left: auto;
+      }
+
+      .hero-logo {
+        width: 85px;
+        height: 85px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .steps,
+      .pricing {
+        grid-template-columns: 1fr;
+      }
+
+      .step {
+        min-height: auto;
+      }
+
+      section {
+        padding: 55px 0;
+      }
+
+      .price-card {
+        padding: 27px;
+      }
+
+      .security-box {
+        padding: 27px 20px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-links {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container navbar">
+
+      <a href="#" class="brand">
+        <img src="logo.png" alt="GoalIQPronos">
+        <div class="brand-name">
+          GOALIQ<span>PRONOS</span>
+        </div>
+      </a>
+
+      <nav class="nav-actions">
+        <a href="login.html" class="btn btn-login">Se connecter</a>
+        <a href="inscription.html" class="btn btn-primary">S'inscrire</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+
+        <img
+          src="logo.png"
+          alt="Logo GoalIQPronos"
+          class="hero-logo"
+        >
+
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Plateforme officielle
+        </div>
+
+        <h1>
+          Des pronostics structurés.
+          <span>Une expérience pensée pour vous.</span>
+        </h1>
+
+        <p class="hero-description">
+          Bienvenue sur <strong>GoalIQPronos</strong>, une plateforme dédiée
+          aux pronostics sportifs. Découvrez nos contenus, activez votre
+          abonnement et accédez à notre groupe officiel depuis votre espace
+          personnel.
+        </p>
+
+        <div class="hero-actions">
+          <a href="inscription.html" class="btn btn-primary">
+            Commencer maintenant
+          </a>
+
+          <a href="login.html" class="btn btn-login">
+            J'ai déjà un compte
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- FONCTIONNEMENT -->
+    <section>
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Comment ça fonctionne ?</h2>
+          <p>
+            Un parcours simple et organisé pour activer votre accès.
+          </p>
+        </div>
+
+        <div class="steps">
+
+          <article class="step">
+            <div class="step-number">01</div>
+            <h3>Créez votre compte</h3>
+            <p>
+              Inscrivez-vous gratuitement avec votre adresse e-mail
+              et votre mot de passe.
+            </p>
+          </article>
+
+          <article class="step">
+            <div class="step-number">02</div>
+            <h3>Choisissez votre paiement</h3>
+            <p>
+              Sélectionnez le moyen de paiement disponible et
+              suivez les instructions affichées.
+            </p>
+          </article>
+
+          <article class="step">
+            <div class="step-number">03</div>
+            <h3>Confirmez votre paiement</h3>
+            <p>
+              Effectuez votre paiement puis transmettez le SMS
+              de confirmation reçu.
+            </p>
+          </article>
+
+          <article class="step">
+            <div class="step-number">04</div>
+            <h3>Accédez au groupe</h3>
+            <p>
+              Après validation, votre abonnement est activé et
+              votre accès officiel devient disponible.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- TARIFS -->
+    <section>
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Nos formules</h2>
+          <p>
+            Un abonnement clair, avec un tarif adapté à chaque période.
+          </p>
+        </div>
+
+        <div class="pricing">
+
+          <article class="price-card featured">
+            <div class="price-label">Premier mois</div>
+            <div class="price">
+              2 500 <small>FCFA</small>
+            </div>
+            <p>
+              Accès pendant 30 jours au groupe officiel
+              GoalIQPronos.
+            </p>
+          </article>
+
+          <article class="price-card">
+            <div class="price-label">Renouvellement</div>
+            <div class="price">
+              5 000 <small>FCFA / mois</small>
+            </div>
+            <p>
+              Renouvelez votre abonnement pour une nouvelle
+              période de 30 jours.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ACCES -->
+    <section>
+      <div class="container">
+
+        <div class="security-box">
+          <h2>Un accès simple et organisé</h2>
+
+          <p>
+            Votre compte, votre abonnement et votre accès au groupe
+            officiel sont regroupés dans votre espace personnel.
+            Une fois votre paiement validé, le bouton
+            <strong>« Rejoindre le groupe officiel »</strong>
+            apparaît directement dans votre espace.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="container">
+
+        <h2>Prêt à commencer ?</h2>
+
+        <p>
+          Créez votre compte et découvrez l'univers GoalIQPronos.
+        </p>
+
+        <a href="inscription.html" class="btn btn-primary">
+          Créer mon compte
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-content">
+
+      <div>
+        © <span id="year"></span> GoalIQPronos. Tous droits réservés.
+      </div>
+
+      <div class="footer-links">
+        <a href="conditions.html">Conditions d'utilisation</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+
+</body>
+  </html>
