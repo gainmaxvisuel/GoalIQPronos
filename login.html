@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Connexion — GoalIQPronos</title>
+  <meta name="description" content="Connectez-vous à votre espace GoalIQPronos.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #090c10;
+      --card: rgba(20, 25, 32, .90);
+      --border: rgba(255,255,255,.09);
+      --text: #f1f5f9;
+      --muted: #8994a3;
+      --silver: #cbd5e1;
+      --success: #22c55e;
+      --danger: #ef4444;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+      background:
+        radial-gradient(
+          circle at 50% -10%,
+          rgba(148,163,184,.13),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at 0% 100%,
+          rgba(59,130,246,.035),
+          transparent 35%
+        ),
+        linear-gradient(
+          180deg,
+          #101419 0%,
+          #090c10 55%,
+          #07090c 100%
+        );
+    }
+
+    /* =========================
+       BACKGROUND
+    ========================== */
+
+    .background {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(75px);
+      opacity: .13;
+      animation: float 12s ease-in-out infinite;
+    }
+
+    .orb.one {
+      width: 240px;
+      height: 240px;
+      background: #64748b;
+      top: -90px;
+      left: -80px;
+    }
+
+    .orb.two {
+      width: 210px;
+      height: 210px;
+      background: #475569;
+      right: -80px;
+      bottom: 10%;
+      animation-delay: -4s;
+    }
+
+    .orb.three {
+      width: 150px;
+      height: 150px;
+      background: #334155;
+      left: 45%;
+      bottom: -80px;
+      animation-delay: -8s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translate3d(0,0,0);
+      }
+
+      50% {
+        transform: translate3d(0,-25px,0);
+      }
+    }
+
+    /* =========================
+       PAGE
+    ========================== */
+
+    .page {
+      position: relative;
+      z-index: 1;
+
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 30px 16px;
+    }
+
+    .login-wrapper {
+      width: 100%;
+      max-width: 470px;
+
+      opacity: 0;
+      transform: translateY(25px);
+
+      animation:
+        pageEnter .8s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+
+    @keyframes pageEnter {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* =========================
+       LOGO
+    ========================== */
+
+    .logo-area {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .logo {
+      width: 82px;
+      height: 82px;
+      object-fit: contain;
+
+      filter:
+        drop-shadow(0 15px 30px rgba(0,0,0,.55));
+
+      animation:
+        logoEnter .9s ease both,
+        logoFloat 5s ease-in-out 1s infinite;
+    }
+
+    @keyframes logoEnter {
+      from {
+        opacity: 0;
+        transform: scale(.75) translateY(-15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes logoFloat {
+      0%,100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .brand {
+      margin-top: 12px;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .brand span {
+      color: #8b98a8;
+    }
+
+    .subtitle {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* =========================
+       CARD
+    ========================== */
+
+    .card {
+      position: relative;
+
+      padding: 32px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(25,30,38,.95),
+          rgba(13,17,22,.95)
+        );
+
+      border: 1px solid var(--border);
+      border-radius: 20px;
+
+      box-shadow:
+        0 30px 80px rgba(0,0,0,.42),
+        inset 0 1px 0 rgba(255,255,255,.045);
+
+      backdrop-filter: blur(20px);
+
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+
+      position: absolute;
+      top: 0;
+      left: 15%;
+
+      width: 70%;
+      height: 1px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.22),
+          transparent
+        );
+    }
+
+    .card-title {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .card-title h1 {
+      font-size: 28px;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .card-title p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* =========================
+       MESSAGE
+    ========================== */
+
+    .message {
+      display: none;
+
+      padding: 12px 14px;
+      margin-bottom: 18px;
+
+      border-radius: 9px;
+
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .message.show {
+      display: block;
+      animation: messageIn .3s ease;
+    }
+
+    .message.error {
+      color: #fca5a5;
+      background: rgba(127,29,29,.16);
+      border: 1px solid rgba(239,68,68,.18);
+    }
+
+    .message.success {
+      color: #86efac;
+      background: rgba(20,83,45,.16);
+      border: 1px solid rgba(34,197,94,.18);
+    }
+
+    @keyframes messageIn {
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* =========================
+       FORM
+    ========================== */
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+
+      margin-bottom: 8px;
+
+      color: #c5ced9;
+
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input {
+      width: 100%;
+      height: 52px;
+
+      padding: 0 15px;
+
+      color: var(--text);
+      background: rgba(255,255,255,.035);
+
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 10px;
+
+      outline: none;
+
+      font-size: 15px;
+
+      transition:
+        border-color .25s ease,
+        background .25s ease,
+        box-shadow .25s ease,
+        transform .25s ease;
+    }
+
+    .input::placeholder {
+      color: #596575;
+    }
+
+    .input:hover {
+      border-color: rgba(255,255,255,.14);
+    }
+
+    .input:focus {
+      background: rgba(255,255,255,.05);
+
+      border-color: rgba(203,213,225,.42);
+
+      box-shadow:
+        0 0 0 3px rgba(148,163,184,.07),
+        0 8px 25px rgba(0,0,0,.15);
+
+      transform: translateY(-1px);
+    }
+
+    .input.valid {
+      border-color: rgba(34,197,94,.45);
+    }
+
+    .input.invalid {
+      border-color: rgba(239,68,68,.55);
+    }
+
+    /* =========================
+       PASSWORD
+    ========================== */
+
+    .password-input {
+      padding-right: 72px;
+    }
+
+    .password-toggle {
+      position: absolute;
+
+      right: 12px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      border: 0;
+      background: transparent;
+
+      color: #778394;
+
+      cursor: pointer;
+
+      padding: 6px;
+
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .password-toggle:hover {
+      color: #cbd5e1;
+    }
+
+    /* =========================
+       OPTIONS
+    ========================== */
+
+    .options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 15px;
+
+      margin: 5px 0 22px;
+
+      font-size: 12px;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      color: #7f8a99;
+
+      cursor: pointer;
+    }
+
+    .remember input {
+      width: 15px;
+      height: 15px;
+      accent-color: #94a3b8;
+    }
+
+    .forgot {
+      color: #aeb8c5;
+      cursor: pointer;
+    }
+
+    .forgot:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .submit-btn {
+      position: relative;
+
+      width: 100%;
+      height: 53px;
+
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 10px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #36414d,
+          #1d252e
+        );
+
+      color: #fff;
+
+      font-size: 14px;
+      font-weight: 800;
+
+      cursor: pointer;
+
+      overflow: hidden;
+
+      box-shadow:
+        0 12px 30px rgba(0,0,0,.28);
+
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+    }
+
+    .submit-btn::before {
+      content: "";
+
+      position: absolute;
+      top: 0;
+      left: -100%;
+
+      width: 60%;
+      height: 100%;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.12),
+          transparent
+        );
+
+      transform: skewX(-20deg);
+
+      transition: left .7s ease;
+    }
+
+    .submit-btn:hover::before {
+      left: 140%;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+
+      border-color: rgba(255,255,255,.24);
+
+      box-shadow:
+        0 16px 35px rgba(0,0,0,.34);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .loader {
+      display: none;
+
+      width: 18px;
+      height: 18px;
+
+      margin: auto;
+
+      border: 2px solid rgba(255,255,255,.3);
+      border-top-color: #fff;
+
+      border-radius: 50%;
+
+      animation: spin .7s linear infinite;
+    }
+
+    .loading .btn-text {
+      display: none;
+    }
+
+    .loading .loader {
+      display: block;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* =========================
+       DIVIDER
+    ========================== */
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      margin: 24px 0;
+
+      color: #596575;
+
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+
+      flex: 1;
+
+      height: 1px;
+
+      background: rgba(255,255,255,.07);
+    }
+
+    /* =========================
+       REGISTER
+    ========================== */
+
+    .register-link {
+      text-align: center;
+
+      color: #778394;
+
+      font-size: 13px;
+    }
+
+    .register-link a {
+      color: #cbd5e1;
+      font-weight: 700;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    .footer {
+      text-align: center;
+
+      margin-top: 22px;
+
+      color: #586474;
+
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 560px) {
+
+      .page {
+        padding: 25px 12px;
+        align-items: flex-start;
+      }
+
+      .login-wrapper {
+        margin-top: 10px;
+      }
+
+      .card {
+        padding: 25px 19px;
+        border-radius: 17px;
+      }
+
+      .logo {
+        width: 72px;
+        height: 72px;
+      }
+
+      .brand {
+        font-size: 18px;
+      }
+
+      .card-title h1 {
+        font-size: 24px;
+      }
+
+      .input {
+        height: 50px;
+      }
+
+      .options {
+        align-items: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- BACKGROUND -->
+
+  <div class="background">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+  </div>
+
+
+  <!-- PAGE -->
+
+  <main class="page">
+
+    <div class="login-wrapper">
+
+      <!-- LOGO -->
+
+      <div class="logo-area">
+
+        <a href="index.html">
+          <img
+            src="logo.png"
+            alt="GoalIQPronos"
+            class="logo"
+          >
+        </a>
+
+        <div class="brand">
+          GOALIQ<span>PRONOS</span>
+        </div>
+
+        <div class="subtitle">
+          Votre espace pronostics
+        </div>
+
+      </div>
+
+
+      <!-- CARD -->
+
+      <section class="card">
+
+        <div class="card-title">
+          <h1>Bon retour</h1>
+
+          <p>
+            Connectez-vous pour accéder à votre espace.
+          </p>
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <div
+          id="message"
+          class="message"
+          role="alert"
+        ></div>
+
+
+        <!-- FORM -->
+
+        <form id="loginForm" novalidate>
+
+          <!-- EMAIL -->
+
+          <div class="form-group">
+
+            <label for="email">
+              Adresse e-mail
+            </label>
+
+            <div class="input-wrapper">
+
+              <input
+                id="email"
+                class="input"
+                type="email"
+                autocomplete="email"
+                placeholder="exemple@email.com"
+                maxlength="254"
+                required
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- PASSWORD -->
+
+          <div class="form-group">
+
+            <label for="password">
+              Mot de passe
+            </label>
+
+            <div class="input-wrapper">
+
+              <input
+                id="password"
+                class="input password-input"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Votre mot de passe"
+                maxlength="72"
+                required
+              >
+
+              <button
+                type="button"
+                class="password-toggle"
+                id="togglePassword"
+              >
+                Afficher
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- OPTIONS -->
+
+          <div class="options">
+
+            <label class="remember">
+
+              <input
+                type="checkbox"
+                id="remember"
+              >
+
+              <span>
+                Se souvenir de moi
+              </span>
+
+            </label>
+
+            <a
+              href="#"
+              class="forgot"
+              id="forgotPassword"
+            >
+              Mot de passe oublié ?
+            </a>
+
+          </div>
+
+
+          <!-- SUBMIT -->
+
+          <button
+            type="submit"
+            class="submit-btn"
+            id="submitButton"
+          >
+
+            <span class="btn-text">
+              Se connecter
+            </span>
+
+            <span
+              class="loader"
+              aria-hidden="true"
+            ></span>
+
+          </button>
+
+        </form>
+
+
+        <!-- DIVIDER -->
+
+        <div class="divider">
+          ou
+        </div>
+
+
+        <!-- REGISTER -->
+
+        <div class="register-link">
+          Vous n'avez pas encore de compte ?
+          <a href="inscription.html">
+            Créer un compte
+          </a>
+        </div>
+
+      </section>
+
+
+      <!-- FOOTER -->
+
+      <div class="footer">
+        GoalIQPronos — Pronostics sportifs<br>
+        © <span id="year"></span> Tous droits réservés.
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <script>
+
+    /* ==========================================
+       CONFIGURATION SUPABASE
+    ========================================== */
+
+    const SUPABASE_URL =
+      "https://cmtbzozflkmxfhdzlgab.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+      "COLLER_ICI_LA_CLE_ANON_PUBLIQUE";
+
+
+    /* ==========================================
+       ELEMENTS
+    ========================================== */
+
+    const form =
+      document.getElementById("loginForm");
+
+    const email =
+      document.getElementById("email");
+
+    const password =
+      document.getElementById("password");
+
+    const message =
+      document.getElementById("message");
+
+    const submitButton =
+      document.getElementById("submitButton");
+
+    const remember =
+      document.getElementById("remember");
+
+
+    /* ==========================================
+       YEAR
+    ========================================== */
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+
+    /* ==========================================
+       MESSAGE
+    ========================================== */
+
+    function showMessage(text, type) {
+
+      message.textContent = text;
+
+      message.className =
+        "message show " + type;
+    }
+
+
+    function clearMessage() {
+
+      message.textContent = "";
+
+      message.className =
+        "message";
+    }
+
+
+    /* ==========================================
+       PASSWORD VISIBILITY
+    ========================================== */
+
+    document
+      .getElementById("togglePassword")
+      .addEventListener("click", () => {
+
+        const isPassword =
+          password.type === "password";
+
+        password.type =
+          isPassword
+            ? "text"
+            : "password";
+
+        document
+          .getElementById("togglePassword")
+          .textContent =
+            isPassword
+              ? "Masquer"
+              : "Afficher";
+
+      });
+
+
+    /* ==========================================
+       EMAIL VALIDATION
+    ========================================== */
+
+    function validEmail(value) {
+
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(value.trim());
+
+    }
+
+
+    email.addEventListener("input", () => {
+
+      const value =
+        email.value.trim();
+
+      email.classList.remove(
+        "valid",
+        "invalid"
+      );
+
+      if (!value)
+        return;
+
+      if (validEmail(value)) {
+
+        email.classList.add("valid");
+
+      } else {
+
+        email.classList.add("invalid");
+
+      }
+
+    });
+
+
+    /* ==========================================
+       LOAD EMAIL FROM REGISTRATION
+    ========================================== */
+
+    try {
+
+      const registeredEmail =
+        sessionStorage.getItem(
+          "goaliq_registered_email"
+        );
+
+      if (registeredEmail) {
+
+        email.value =
+          registeredEmail;
+
+        email.classList.add(
+          "valid"
+        );
+
+        password.focus();
+
+      }
+
+    } catch {
+      // sessionStorage indisponible
+    }
+
+
+    /* ==========================================
+       SUPABASE RPC LOGIN
+    ========================================== */
+
+    async function loginUser(
+      userEmail,
+      userPassword
+    ) {
+
+      if (
+        !SUPABASE_ANON_KEY ||
+        SUPABASE_ANON_KEY ===
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtdGJ6b3pmbGtteGZoZHpsZ2FiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAzNDczNTAsImV4cCI6MjEwNTkyMzM1MH0.mtkIN7_X-4OZQNUeLWOZ9ks3CivzrcoW9tgM8tWKAcI"
+      ) {
+
+        throw new Error(
+          "La clé publique Supabase n'est pas configurée."
+        );
+
+      }
+
+
+      const response =
+        await fetch(
+          SUPABASE_URL +
+          "/rest/v1/rpc/login_user",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+
+              "apikey":
+                SUPABASE_ANON_KEY,
+
+              "Authorization":
+                "Bearer " +
+                SUPABASE_ANON_KEY
+            },
+
+            body: JSON.stringify({
+              p_email:
+                userEmail,
+
+              p_password:
+                userPassword
+            })
+          }
+        );
+
+
+      let data = null;
+
+      try {
+
+        data =
+          await response.json();
+
+      } catch {
+
+        data = null;
+
+      }
+
+
+      if (!response.ok) {
+
+        let errorText =
+          "Impossible de se connecter.";
+
+        if (data) {
+
+          errorText =
+            data.message ||
+            data.error_description ||
+            data.hint ||
+            data.details ||
+            data.error ||
+            errorText;
+
+        }
+
+        throw new Error(errorText);
+      }
+
+
+      return data;
+    }
+
+
+    /* ========================================
+       LOGIN
+    ========================================== */
+
+    form.addEventListener(
+      "submit",
+      async (event) => {
+
+        event.preventDefault();
+
+        clearMessage();
+
+
+        const userEmail =
+          email.value.trim().toLowerCase();
+
+        const userPassword =
+          password.value;
+
+
+        if (!validEmail(userEmail)) {
+
+          showMessage(
+            "Veuillez saisir une adresse e-mail valide.",
+            "error"
+          );
+
+          email.focus();
+
+          return;
+        }
+
+
+        if (!userPassword) {
+
+          showMessage(
+            "Veuillez saisir votre mot de passe.",
+            "error"
+          );
+
+          password.focus();
+
+          return;
+        }
+
+
+        submitButton.disabled = true;
+
+        submitButton.classList.add(
+          "loading"
+        );
+
+
+        try {
+
+          const result =
+            await loginUser(
+              userEmail,
+              userPassword
+            );
+
+
+          /*
+           * La fonction login_user doit
+           * retourner success=true et
+           * les informations nécessaires
+           * à la session applicative.
+           */
+
+          if (
+            !result ||
+            result.success !== true
+          ) {
+
+            const errorCode =
+              result?.error ||
+              "LOGIN_FAILED";
+
+
+            if (
+              errorCode ===
+              "INVALID_CREDENTIALS"
+            ) {
+
+              throw new Error(
+                "Adresse e-mail ou mot de passe incorrect."
+              );
+
+            }
+
+
+            if (
+              errorCode ===
+              "USER_NOT_FOUND"
+            ) {
+
+              throw new Error(
+                "Adresse e-mail ou mot de passe incorrect."
+              );
+
+            }
+
+
+            throw new Error(
+              "Impossible de vous connecter. Vérifiez vos informations."
+            );
+          }
+
+
+          /*
+           * Ne jamais stocker le mot de passe.
+           */
+
+          const sessionData = {
+            user_id:
+              result.user_id,
+
+            email:
+              result.email ||
+              userEmail,
+
+            logged_at:
+              new Date().toISOString()
+          };
+
+
+          try {
+
+            const storage =
+              remember.checked
+                ? localStorage
+                : sessionStorage;
+
+            storage.setItem(
+              "goaliq_session",
+              JSON.stringify(sessionData)
+            );
+
+          } catch {
+
+            /*
+             * Si le stockage est indisponible,
+             * on poursuit quand même la connexion.
+             */
+
+          }
+
+
+          showMessage(
+            "Connexion réussie. Ouverture de votre espace...",
+            "success"
+          );
+
+
+          setTimeout(
+            () => {
+
+              window.location.href =
+                "dashboard.html";
+
+            },
+            900
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "Erreur connexion:",
+            error
+          );
+
+
+          showMessage(
+            error.message ||
+            "Une erreur est survenue pendant la connexion.",
+            "error"
+          );
+
+
+        } finally {
+
+          submitButton.disabled = false;
+
+          submitButton.classList.remove(
+            "loading"
+          );
+
+        }
+
+      }
+    );
+
+
+    /* ==========================================
+       MOT DE PASSE OUBLIÉ
+    ========================================== */
+
+    document
+      .getElementById("forgotPassword")
+      .addEventListener("click", (event) => {
+
+        event.preventDefault();
+
+        showMessage(
+          "La récupération du mot de passe sera disponible prochainement.",
+          "success"
+        );
+
+      });
+
+  </script>
+
+</body>
+</html>
