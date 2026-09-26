@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Créer un compte — GoalIQPronos</title>
+  <meta
+    name="description"
+    content="Créez votre compte GoalIQPronos et accédez à votre espace personnel."
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #090c10;
+      --bg2: #10151b;
+      --card: rgba(20, 25, 32, 0.88);
+      --border: rgba(255, 255, 255, 0.09);
+
+      --text: #f1f5f9;
+      --muted: #8994a3;
+      --silver: #cbd5e1;
+
+      --success: #22c55e;
+      --danger: #ef4444;
+
+      --input: rgba(255, 255, 255, 0.035);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      font-family:
+        "Segoe UI",
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at 50% -10%,
+          rgba(148, 163, 184, 0.13),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at 0% 100%,
+          rgba(59, 130, 246, 0.035),
+          transparent 35%
+        ),
+        linear-gradient(
+          180deg,
+          #101419 0%,
+          #090c10 55%,
+          #07090c 100%
+        );
+
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       BACKGROUND ANIMATION
+    ========================== */
+
+    .background {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.13;
+      animation: float 12s ease-in-out infinite;
+    }
+
+    .orb.one {
+      width: 240px;
+      height: 240px;
+      background: #64748b;
+      top: -90px;
+      left: -80px;
+    }
+
+    .orb.two {
+      width: 200px;
+      height: 200px;
+      background: #475569;
+      right: -70px;
+      bottom: 10%;
+      animation-delay: -4s;
+    }
+
+    .orb.three {
+      width: 150px;
+      height: 150px;
+      background: #334155;
+      left: 45%;
+      bottom: -80px;
+      animation-delay: -8s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translate3d(0, 0, 0);
+      }
+
+      50% {
+        transform: translate3d(0, -25px, 0);
+      }
+    }
+
+    /* =========================
+       PAGE
+    ========================== */
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 35px 16px;
+    }
+
+    .register-wrapper {
+      width: 100%;
+      max-width: 500px;
+
+      opacity: 0;
+      transform: translateY(25px);
+
+      animation:
+        pageEnter 0.8s cubic-bezier(.2,.8,.2,1)
+        forwards;
+    }
+
+    @keyframes pageEnter {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* =========================
+       LOGO
+    ========================== */
+
+    .logo-area {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .logo-link {
+      display: inline-block;
+    }
+
+    .logo {
+      width: 82px;
+      height: 82px;
+      object-fit: contain;
+
+      filter:
+        drop-shadow(0 15px 30px rgba(0,0,0,.55));
+
+      animation:
+        logoEnter 0.9s ease both,
+        logoFloat 5s ease-in-out 1s infinite;
+    }
+
+    @keyframes logoEnter {
+      0% {
+        opacity: 0;
+        transform: scale(.75) translateY(-15px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes logoFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .brand {
+      margin-top: 12px;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .brand span {
+      color: #8b98a8;
+    }
+
+    .subtitle {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* =========================
+       CARD
+    ========================== */
+
+    .card {
+      position: relative;
+      padding: 32px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(25, 30, 38, 0.94),
+          rgba(13, 17, 22, 0.94)
+        );
+
+      border: 1px solid var(--border);
+      border-radius: 20px;
+
+      box-shadow:
+        0 30px 80px rgba(0,0,0,.42),
+        inset 0 1px 0 rgba(255,255,255,.045);
+
+      backdrop-filter: blur(20px);
+
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 15%;
+      width: 70%;
+      height: 1px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.22),
+          transparent
+        );
+    }
+
+    .card-title {
+      text-align: center;
+      margin-bottom: 27px;
+    }
+
+    .card-title h1 {
+      font-size: 27px;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .card-title p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* =========================
+       FORM
+    ========================== */
+
+    .form-group {
+      margin-bottom: 19px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+
+      color: #c5ced9;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input {
+      width: 100%;
+      height: 52px;
+
+      padding: 0 15px;
+
+      color: var(--text);
+      background: var(--input);
+
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 10px;
+
+      outline: none;
+
+      font-size: 15px;
+
+      transition:
+        border-color .25s ease,
+        background .25s ease,
+        box-shadow .25s ease,
+        transform .25s ease;
+    }
+
+    .input::placeholder {
+      color: #596575;
+    }
+
+    .input:hover {
+      border-color: rgba(255,255,255,.14);
+    }
+
+    .input:focus {
+      background: rgba(255,255,255,.05);
+      border-color: rgba(203,213,225,.42);
+
+      box-shadow:
+        0 0 0 3px rgba(148,163,184,.07),
+        0 8px 25px rgba(0,0,0,.15);
+
+      transform: translateY(-1px);
+    }
+
+    .input.valid {
+      border-color: rgba(34,197,94,.45);
+    }
+
+    .input.invalid {
+      border-color: rgba(239,68,68,.55);
+    }
+
+    /* =========================
+       PASSWORD
+    ========================== */
+
+    .password-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      border: 0;
+      background: transparent;
+
+      color: #778394;
+      cursor: pointer;
+
+      font-size: 12px;
+      font-weight: 600;
+
+      padding: 6px;
+    }
+
+    .password-toggle:hover {
+      color: #cbd5e1;
+    }
+
+    .password-input {
+      padding-right: 70px;
+    }
+
+    /* =========================
+       PASSWORD STRENGTH
+    ========================== */
+
+    .strength {
+      margin-top: 9px;
+      display: none;
+    }
+
+    .strength.show {
+      display: block;
+    }
+
+    .strength-bar {
+      height: 4px;
+      width: 100%;
+
+      border-radius: 10px;
+      overflow: hidden;
+
+      background: rgba(255,255,255,.07);
+    }
+
+    .strength-progress {
+      width: 0;
+      height: 100%;
+
+      background: #64748b;
+
+      transition:
+        width .35s ease,
+        background .35s ease;
+    }
+
+    .strength-text {
+      margin-top: 5px;
+
+      color: #778394;
+      font-size: 11px;
+    }
+
+    /* =========================
+       CHECKBOX
+    ========================== */
+
+    .terms {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+
+      margin: 22px 0;
+
+      color: #7f8a99;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .terms input {
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+
+      accent-color: #94a3b8;
+
+      flex-shrink: 0;
+    }
+
+    .terms a {
+      color: #b8c2ce;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* =========================
+       ERROR / SUCCESS
+    ========================== */
+
+    .message {
+      display: none;
+
+      padding: 12px 14px;
+      margin-bottom: 18px;
+
+      border-radius: 9px;
+
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .message.show {
+      display: block;
+      animation: messageIn .3s ease;
+    }
+
+    .message.error {
+      color: #fca5a5;
+      background: rgba(127,29,29,.16);
+      border: 1px solid rgba(239,68,68,.18);
+    }
+
+    .message.success {
+      color: #86efac;
+      background: rgba(20,83,45,.16);
+      border: 1px solid rgba(34,197,94,.18);
+    }
+
+    @keyframes messageIn {
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .submit-btn {
+      position: relative;
+
+      width: 100%;
+      height: 53px;
+
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 10px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #36414d,
+          #1d252e
+        );
+
+      color: #fff;
+
+      font-size: 14px;
+      font-weight: 800;
+
+      cursor: pointer;
+
+      overflow: hidden;
+
+      box-shadow:
+        0 12px 30px rgba(0,0,0,.28);
+
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+    }
+
+    .submit-btn::before {
+      content: "";
+
+      position: absolute;
+      top: 0;
+      left: -100%;
+
+      width: 60%;
+      height: 100%;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.12),
+          transparent
+        );
+
+      transform: skewX(-20deg);
+      transition: left .7s ease;
+    }
+
+    .submit-btn:hover::before {
+      left: 140%;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+
+      border-color: rgba(255,255,255,.24);
+
+      box-shadow:
+        0 16px 35px rgba(0,0,0,.34);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .loader {
+      display: none;
+
+      width: 18px;
+      height: 18px;
+
+      border: 2px solid rgba(255,255,255,.3);
+      border-top-color: #fff;
+
+      border-radius: 50%;
+
+      animation: spin .7s linear infinite;
+
+      margin: auto;
+    }
+
+    .loading .btn-text {
+      display: none;
+    }
+
+    .loading .loader {
+      display: block;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* =========================
+       LOGIN
+    ========================== */
+
+    .login-link {
+      text-align: center;
+      margin-top: 23px;
+
+      color: #778394;
+      font-size: 13px;
+    }
+
+    .login-link a {
+      color: #cbd5e1;
+      font-weight: 700;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    .footer {
+      text-align: center;
+      margin-top: 22px;
+
+      color: #586474;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 560px) {
+
+      .page {
+        padding: 25px 12px;
+        align-items: flex-start;
+      }
+
+      .register-wrapper {
+        margin-top: 10px;
+      }
+
+      .card {
+        padding: 25px 19px;
+        border-radius: 17px;
+      }
+
+      .logo {
+        width: 72px;
+        height: 72px;
+      }
+
+      .brand {
+        font-size: 18px;
+      }
+
+      .card-title h1 {
+        font-size: 24px;
+      }
+
+      .input {
+        height: 50px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       BACKGROUND
+  ========================== -->
+
+  <div class="background">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+  </div>
+
+
+  <!-- =========================
+       PAGE
+  ========================== -->
+
+  <main class="page">
+
+    <div class="register-wrapper">
+
+      <!-- LOGO -->
+
+      <div class="logo-area">
+
+        <a href="index.html" class="logo-link">
+          <img
+            src="logo.png"
+            alt="GoalIQPronos"
+            class="logo"
+          >
+        </a>
+
+        <div class="brand">
+          GOALIQ<span>PRONOS</span>
+        </div>
+
+        <div class="subtitle">
+          Votre espace pronostics
+        </div>
+
+      </div>
+
+
+      <!-- CARD -->
+
+      <section class="card">
+
+        <div class="card-title">
+          <h1>Créer votre compte</h1>
+
+          <p>
+            Inscrivez-vous pour commencer votre parcours
+            sur GoalIQPronos.
+          </p>
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <div
+          id="message"
+          class="message"
+          role="alert"
+        ></div>
+
+
+        <!-- FORM -->
+
+        <form id="registerForm" novalidate>
+
+          <!-- EMAIL -->
+
+          <div class="form-group">
+
+            <label for="email">
+              Adresse e-mail
+            </label>
+
+            <div class="input-wrapper">
+
+              <input
+                id="email"
+                name="email"
+                class="input"
+                type="email"
+                autocomplete="email"
+                placeholder="exemple@email.com"
+                maxlength="254"
+                required
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- PASSWORD -->
+
+          <div class="form-group">
+
+            <label for="password">
+              Mot de passe
+            </label>
+
+            <div class="input-wrapper">
+
+              <input
+                id="password"
+                name="password"
+                class="input password-input"
+                type="password"
+                autocomplete="new-password"
+                placeholder="Minimum 8 caractères"
+                maxlength="72"
+                required
+              >
+
+              <button
+                type="button"
+                class="password-toggle"
+                id="togglePassword"
+              >
+                Afficher
+              </button>
+
+            </div>
+
+
+            <div
+              class="strength"
+              id="strength"
+            >
+
+              <div class="strength-bar">
+                <div
+                  class="strength-progress"
+                  id="strengthProgress"
+                ></div>
+              </div>
+
+              <div
+                class="strength-text"
+                id="strengthText"
+              >
+                Force du mot de passe
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- CONFIRM PASSWORD -->
+
+          <div class="form-group">
+
+            <label for="confirmPassword">
+              Confirmer le mot de passe
+            </label>
+
+            <div class="input-wrapper">
+
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                class="input password-input"
+                type="password"
+                autocomplete="new-password"
+                placeholder="Saisissez à nouveau votre mot de passe"
+                maxlength="72"
+                required
+              >
+
+              <button
+                type="button"
+                class="password-toggle"
+                id="toggleConfirmPassword"
+              >
+                Afficher
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- TERMS -->
+
+          <label class="terms">
+
+            <input
+              type="checkbox"
+              id="terms"
+              required
+            >
+
+            <span>
+              J'accepte les
+              <a href="conditions.html">
+                conditions d'utilisation
+              </a>
+              et la
+              <a href="confidentialite.html">
+                politique de confidentialité
+              </a>
+              de GoalIQPronos.
+            </span>
+
+          </label>
+
+
+          <!-- SUBMIT -->
+
+          <button
+            type="submit"
+            class="submit-btn"
+            id="submitButton"
+          >
+
+            <span class="btn-text">
+              Créer mon compte
+            </span>
+
+            <span
+              class="loader"
+              aria-hidden="true"
+            ></span>
+
+          </button>
+
+        </form>
+
+
+        <!-- LOGIN -->
+
+        <div class="login-link">
+          Vous avez déjà un compte ?
+          <a href="login.html">
+            Se connecter
+          </a>
+        </div>
+
+      </section>
+
+
+      <!-- FOOTER -->
+
+      <div class="footer">
+        GoalIQPronos — Pronostics sportifs<br>
+        © <span id="year"></span> Tous droits réservés.
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script>
+
+    /*
+     * ==========================================
+     * CONFIGURATION SUPABASE
+     * ==========================================
+     *
+     * Projet :
+     * OPPORTASERVICE
+     *
+     * Project URL :
+     * https://cmtbzozflkmxfhdzlgab.supabase.co
+     *
+     * NE JAMAIS mettre une service_role key ici.
+     *
+     * Utiliser uniquement la clé anon publique.
+     */
+
+    const SUPABASE_URL =
+      "https://cmtbzozflkmxfhdzlgab.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtdGJ6b3pmbGtteGZoZHpsZ2FiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAzNDczNTAsImV4cCI6MjEwNTkyMzM1MH0.mtkIN7_X-4OZQNUeLWOZ9ks3CivzrcoW9tgM8tWKAcI";
+
+
+    /*
+     * ==========================================
+     * ELEMENTS
+     * ==========================================
+     */
+
+    const form =
+      document.getElementById("registerForm");
+
+    const email =
+      document.getElementById("email");
+
+    const password =
+      document.getElementById("password");
+
+    const confirmPassword =
+      document.getElementById("confirmPassword");
+
+    const terms =
+      document.getElementById("terms");
+
+    const message =
+      document.getElementById("message");
+
+    const submitButton =
+      document.getElementById("submitButton");
+
+    const strength =
+      document.getElementById("strength");
+
+    const strengthProgress =
+      document.getElementById("strengthProgress");
+
+    const strengthText =
+      document.getElementById("strengthText");
+
+
+    /*
+     * ==========================================
+     * ANNÉE
+     * ==========================================
+     */
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+
+    /*
+     * ==========================================
+     * MESSAGE
+     * ==========================================
+     */
+
+    function showMessage(text, type) {
+
+      message.textContent = text;
+
+      message.className =
+        "message show " + type;
+
+    }
+
+
+    function clearMessage() {
+
+      message.textContent = "";
+
+      message.className = "message";
+
+    }
+
+
+    /*
+     * ==========================================
+     * PASSWORD VISIBILITY
+     * ==========================================
+     */
+
+    function setupPasswordToggle(
+      buttonId,
+      inputId
+    ) {
+
+      const button =
+        document.getElementById(buttonId);
+
+      const input =
+        document.getElementById(inputId);
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const isPassword =
+            input.type === "password";
+
+          input.type =
+            isPassword
+              ? "text"
+              : "password";
+
+          button.textContent =
+            isPassword
+              ? "Masquer"
+              : "Afficher";
+
+        }
+      );
+    }
+
+
+    setupPasswordToggle(
+      "togglePassword",
+      "password"
+    );
+
+    setupPasswordToggle(
+      "toggleConfirmPassword",
+      "confirmPassword"
+    );
+
+
+    /*
+     * ==========================================
+     * EMAIL VALIDATION
+     * ==========================================
+     */
+
+    function validEmail(value) {
+
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(value.trim());
+
+    }
+
+
+    email.addEventListener(
+      "input",
+      () => {
+
+        const value =
+          email.value.trim();
+
+        if (!value) {
+
+          email.classList.remove(
+            "valid",
+            "invalid"
+          );
+
+          return;
+        }
+
+        if (validEmail(value)) {
+
+          email.classList.add("valid");
+          email.classList.remove("invalid");
+
+        } else {
+
+          email.classList.add("invalid");
+          email.classList.remove("valid");
+
+        }
+
+      }
+    );
+
+
+    /*
+     * ==========================================
+     * PASSWORD STRENGTH
+     * ==========================================
+     */
+
+    function passwordScore(value) {
+
+      let score = 0;
+
+      if (value.length >= 8)
+        score++;
+
+      if (value.length >= 12)
+        score++;
+
+      if (/[A-Z]/.test(value))
+        score++;
+
+      if (/[a-z]/.test(value))
+        score++;
+
+      if (/[0-9]/.test(value))
+        score++;
+
+      if (/[^A-Za-z0-9]/.test(value))
+        score++;
+
+      return Math.min(score, 6);
+    }
+
+
+    password.addEventListener(
+      "input",
+      () => {
+
+        const value =
+          password.value;
+
+        if (!value) {
+
+          strength.classList.remove("show");
+
+          password.classList.remove(
+            "valid",
+            "invalid"
+          );
+
+          return;
+        }
+
+        strength.classList.add("show");
+
+        const score =
+          passwordScore(value);
+
+        const percent =
+          (score / 6) * 100;
+
+        strengthProgress.style.width =
+          percent + "%";
+
+
+        if (score <= 2) {
+
+          strengthText.textContent =
+            "Mot de passe faible";
+
+          strengthProgress.style.background =
+            "#ef4444";
+
+        } else if (score <= 4) {
+
+          strengthText.textContent =
+            "Mot de passe moyen";
+
+          strengthProgress.style.background =
+            "#f59e0b";
+
+        } else {
+
+          strengthText.textContent =
+            "Mot de passe fort";
+
+          strengthProgress.style.background =
+            "#22c55e";
+
+        }
+
+        password.classList.toggle(
+          "valid",
+          value.length >= 8
+        );
+
+        password.classList.toggle(
+          "invalid",
+          value.length < 8
+        );
+
+      }
+    );
+
+
+    /*
+     * ==========================================
+     * PASSWORD CONFIRMATION
+     * ==========================================
+     */
+
+    confirmPassword.addEventListener(
+      "input",
+      () => {
+
+        if (!confirmPassword.value) {
+
+          confirmPassword.classList.remove(
+            "valid",
+            "invalid"
+          );
+
+          return;
+        }
+
+        if (
+          confirmPassword.value ===
+          password.value
+        ) {
+
+          confirmPassword.classList.add(
+            "valid"
+          );
+
+          confirmPassword.classList.remove(
+            "invalid"
+          );
+
+        } else {
+
+          confirmPassword.classList.add(
+            "invalid"
+          );
+
+          confirmPassword.classList.remove(
+            "valid"
+          );
+
+        }
+
+      }
+    );
+
+
+    /*
+     * ==========================================
+     * SUPABASE RPC
+     * ==========================================
+     */
+
+    async function registerUser(
+      userEmail,
+      userPassword
+    ) {
+
+      if (
+        !SUPABASE_ANON_KEY ||
+        SUPABASE_ANON_KEY ===
+        "COLLER_ICI_LA_CLE_ANON_PUBLIQUE"
+      ) {
+
+        throw new Error(
+          "La clé publique Supabase n'est pas configurée."
+        );
+
+      }
+
+
+      const response =
+        await fetch(
+          SUPABASE_URL +
+          "/rest/v1/rpc/register_user",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+
+              "apikey":
+                SUPABASE_ANON_KEY,
+
+              "Authorization":
+                "Bearer " +
+                SUPABASE_ANON_KEY
+            },
+
+            body: JSON.stringify({
+              p_email:
+                userEmail,
+
+              p_password:
+                userPassword
+            })
+          }
+        );
+
+
+      let data = null;
+
+      try {
+
+        data =
+          await response.json();
+
+      } catch {
+
+        data = null;
+
+      }
+
+
+      if (!response.ok) {
+
+        let errorText =
+          "Impossible de créer le compte.";
+
+        if (data) {
+
+          errorText =
+            data.message ||
+            data.error_description ||
+            data.hint ||
+            data.details ||
+            data.error ||
+            errorText;
+
+        }
+
+        throw new Error(errorText);
+
+      }
+
+
+      return data;
+
+    }
+
+
+    /*
+     * ==========================================
+     * FORM SUBMIT
+     * ==========================================
+     */
+
+    form.addEventListener(
+      "submit",
+      async (event) => {
+
+        event.preventDefault();
+
+        clearMessage();
+
+
+        const userEmail =
+          email.value.trim().toLowerCase();
+
+        const userPassword =
+          password.value;
+
+        const userConfirmPassword =
+          confirmPassword.value;
+
+
+        /*
+         * EMAIL
+         */
+
+        if (!validEmail(userEmail)) {
+
+          showMessage(
+            "Veuillez saisir une adresse e-mail valide.",
+            "error"
+          );
+
+          email.focus();
+
+          return;
+        }
+
+
+        /*
+         * PASSWORD
+         */
+
+        if (userPassword.length < 8) {
+
+          showMessage(
+            "Le mot de passe doit contenir au moins 8 caractères.",
+            "error"
+          );
+
+          password.focus();
+
+          return;
+        }
+
+
+        /*
+         * CONFIRMATION
+         */
+
+        if (
+          userPassword !==
+          userConfirmPassword
+        ) {
+
+          showMessage(
+            "Les deux mots de passe ne correspondent pas.",
+            "error"
+          );
+
+          confirmPassword.focus();
+
+          return;
+        }
+
+
+        /*
+         * CONDITIONS
+         */
+
+        if (!terms.checked) {
+
+          showMessage(
+            "Vous devez accepter les conditions d'utilisation et la politique de confidentialité.",
+            "error"
+          );
+
+          terms.focus();
+
+          return;
+        }
+
+
+        /*
+         * LOADING
+         */
+
+        submitButton.disabled = true;
+
+        submitButton.classList.add(
+          "loading"
+        );
+
+
+        try {
+
+          const result =
+            await registerUser(
+              userEmail,
+              userPassword
+            );
+
+
+          /*
+           * STOCKAGE LOCAL MINIMAL
+           *
+           * Le mot de passe n'est jamais
+           * stocké dans localStorage.
+           */
+
+          if (result) {
+
+            try {
+
+              sessionStorage.setItem(
+                "goaliq_registered_email",
+                userEmail
+              );
+
+            } catch {
+
+              // Rien à faire si sessionStorage
+              // est indisponible.
+
+            }
+
+          }
+
+
+          showMessage(
+            "Votre compte a été créé avec succès. Redirection vers la connexion...",
+            "success"
+          );
+
+
+          /*
+           * REDIRECTION
+           */
+
+          setTimeout(
+            () => {
+
+              window.location.href =
+                "login.html";
+
+            },
+            1500
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "Erreur inscription:",
+            error
+          );
+
+
+          let text =
+            error.message ||
+            "Une erreur est survenue pendant l'inscription.";
+
+
+          /*
+           * Messages PostgreSQL courants
+           */
+
+          const lower =
+            text.toLowerCase();
+
+
+          if (
+            lower.includes("already") ||
+            lower.includes("duplicate") ||
+            lower.includes("unique")
+          ) {
+
+            text =
+              "Cette adresse e-mail est déjà utilisée.";
+
+          }
+
+
+          showMessage(
+            text,
+            "error"
+          );
+
+
+        } finally {
+
+          submitButton.disabled = false;
+
+          submitButton.classList.remove(
+            "loading"
+          );
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
